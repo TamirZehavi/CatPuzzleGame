@@ -17,6 +17,8 @@ public class ExitButton : MonoBehaviour
     {
         if (collider.gameObject.tag == "Vase")
         {
+            rigidBody.bodyType = RigidbodyType2D.Dynamic;
+            rigidBody.gravityScale = 0;
             rigidBody.AddForce(Vector2.up * 4, ForceMode2D.Impulse);
             
         }

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 500.0f;
+    [SerializeField] private float speed = 500.0f;
 
-    [SerializeField]
-    private float jumpForce = 8.0f;
+    [SerializeField] private float jumpForce = 8.0f;
+
+    [SerializeField] private bool canJump;
 
     private Rigidbody2D rigidBody;
+
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -33,10 +34,26 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(Mathf.Sign(deltaX), 1.0f, 1.0f);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
+            canJump = false;
             rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
 
+    //void OnCollisionEnter2D(Collision2D collider)
+    //{
+    //    if (collider.gameObject.tag == "Floor")
+    //    {
+    //        canJump = true;
+    //    }
+    //}
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Floor")
+        {
+            canJump = true;
+        }
+    }
 }
