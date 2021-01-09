@@ -12,21 +12,17 @@ public class ExitButton : MonoBehaviour
     {
         rigidBody = door.GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     void OnCollisionEnter2D(Collision2D collider)
     {
         if (collider.gameObject.tag == "Vase")
         {
+            rigidBody.AddForce(Vector2.up * 4, ForceMode2D.Impulse);
             
-            rigidBody.MovePosition(Vector2.up);
-            Debug.Log("it worked");
         }
+
+        
+        
     }
 
 
